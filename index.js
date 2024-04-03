@@ -1,19 +1,28 @@
 const express = require("express");
-const helmetMiddleware = require("./middleware/securityMiddleware");
+const fs = require("fs");
+const securityMiddleware = require("./middleware/securityMiddleware");
 const mainController = require("./controllers/mainController");
 
 const app = express();
 
 // Use Helmet middleware for enhanced security
-app.use(helmetMiddleware.useHelmet());
+app.use(securityMiddleware.useHelmet());
 
 // Enable HSTS
-app.use(helmetMiddleware.enableHSTS());
+app.use(securityMiddleware.enableHSTS());
+
+// // Middleware to redirect HTTP to HTTPS
+// app.use(securityMiddleware.redirectToHttps);
 
 // Define routes
 app.get("/", mainController.index);
 
 const port = 2000;
+
+const options = {
+  key: fs.readFileSync("server.key"),
+  cert: fs.readFileSync("server.cert"),
+};
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
