@@ -41,9 +41,18 @@ function redirectToHttps(req, res, next) {
   }
 }
 
+const addSecurityHeaders = (req, res, next) => {
+  // Set Cache-Control header to 'no-store' for sensitive information
+  res.setHeader("Cache-Control", "no-store");
+  // Add Content-Security-Policy header to restrict resources
+  res.setHeader("Content-Security-Policy", "default-src 'self'");
+  next();
+};
+
 // Export middleware functions
 module.exports = {
   useHelmet,
   enableHSTS,
   redirectToHttps,
+  addSecurityHeaders,
 };

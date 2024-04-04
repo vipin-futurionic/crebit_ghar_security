@@ -11,6 +11,9 @@ app.use(securityMiddleware.useHelmet());
 // Enable HSTS
 app.use(securityMiddleware.enableHSTS());
 
+// Middleware to add security headers
+app.use(securityMiddleware.addSecurityHeaders);
+
 // // Middleware to redirect HTTP to HTTPS
 // app.use(securityMiddleware.redirectToHttps);
 
