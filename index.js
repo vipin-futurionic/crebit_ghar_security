@@ -19,10 +19,6 @@ app.get("/", mainController.index);
 
 const port = 2000;
 
-const options = {
-  key: fs.readFileSync("server.key"),
-  cert: fs.readFileSync("server.cert"),
-};
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
